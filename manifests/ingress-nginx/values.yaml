@@ -7,7 +7,7 @@ ingress-nginx:
     service:
       type: LoadBalancer
       annotations:
-        kubernetes.digitalocean.com/load-balancer-id: 683b11b1-0a28-4db4-983f-708dd5ed932d
+        kubernetes.digitalocean.com/load-balancer-id: 863838f1-f252-4d4f-91ea-8c6d75e9efa8
     resources:
       requests:
         cpu: 100m
