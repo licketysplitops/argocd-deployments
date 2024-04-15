@@ -6,12 +6,9 @@ metadata:
 spec:
   project: default
   source:
-    chart: apps
     repoURL: https://github.com/licketysplitops/argocd-deployments
-    path: apps
-    targetRevision: 0.1.0
-    helm:
-      releaseName: apps
+    path: apps/apps
+    targetRevision: dev
   destination:
     server: "https://kubernetes.default.svc"
     namespace: '*'

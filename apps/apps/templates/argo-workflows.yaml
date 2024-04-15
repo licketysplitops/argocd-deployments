@@ -15,7 +15,6 @@ spec:
     path: manifests/argo-workflows/overlays
     repoURL: {{.Values.spec.source.repoURL}}
     targetRevision: {{.Values.spec.source.targetRevision}}
-vision: dev
   destination:
     namespace: argo
     server: https://kubernetes.default.svc
