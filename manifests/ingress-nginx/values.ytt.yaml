@@ -1,0 +1,22 @@
+#@ load("@ytt:data", "data")
+ingress-nginx:
+  controller:
+    extraArgs:
+      enable-ssl-passthrough: ""
+    ingressClassResource:
+      default: true
+    service:
+      type: LoadBalancer
+      annotations:
+        kubernetes.digitalocean.com/load-balancer-id: #@ data.values.load_balancer.id
+    resources:
+      requests:
+        cpu: 100m
+        memory: 50Mi
+      limits:
+        cpu: 500m
+        memory: 150Mi
+    metrics:
+      enabled: false
+      serviceMonitor:
+        enabled: false

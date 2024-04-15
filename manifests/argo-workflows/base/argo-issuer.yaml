@@ -1,0 +1,16 @@
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: argo-issuer
+  namespace: argo
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: daniel@nullkarma.com
+    privateKeySecretRef:
+      name: letsencrypt
+    solvers:
+      - selector: {}
+        http01:
+          ingress:
+            class: nginx

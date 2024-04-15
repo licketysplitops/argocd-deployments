@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: argo-server
+  namespace: argo
+spec:
+  template:
+    spec:
+      serviceAccountName: argo-server
+      containers:
+        - name: argo-server
+          args:
+            - server
+            - --auth-mode=sso
+            - --auth-mode=client
+            - --tls-certificate-secret-name=argo-server-tls
+            - --x-frame-options=SAMEORIGIN

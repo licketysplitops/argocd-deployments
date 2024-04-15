@@ -1,0 +1,22 @@
+{
+  "kind": "SealedSecret",
+  "apiVersion": "bitnami.com/v1alpha1",
+  "metadata": {
+    "name": "argo-workflows-sso",
+    "namespace": "argo",
+    "creationTimestamp": null
+  },
+  "spec": {
+    "template": {
+      "metadata": {
+        "name": "argo-workflows-sso",
+        "namespace": "argo",
+        "creationTimestamp": null
+      }
+    },
+    "encryptedData": {
+      "client-id": "AgBzNG1gTFTujsioA4aAGtNzn3kXMHn/DZsn+2W3vmmXiBPW2F1XE4m6NIJGtTrNy8nHUWM+vbjvID76411R72pbuThkluTE2tRntYXDHQ97Kgs8Hink07JW9JOl93UujQvV1AykJMWyyNxk3Cwweium2RA55yIMsQjveT+enaJmg+8NkyVevN/LNus2/It0qyECvvXUE6adJfTnKtc560JM2tXsxYBuy5wLsu2WZKY/IDFn2h3BIyQV8ZAIUVjXvmMe/TR2pLOFHopPp5zTwzOSlf1F6Z8RqPke4Od3mfBzyLfAFNorr+EIo2KM8Ibe3TxQNGvO1YilNOUBa+Vp7xMqI6eGezF5l+8L5iYou4UWlsKzvVZLjqJr6eePm1uviLSUIlreeiQ33XG0FOQHSqC1EbmlMWiItzvJvmxYoQFCyZsLrZVqf+BsDSKZGr0v+J94gLaNTNHogJ8IscZVIYSX7/US72qA3Q7v4f/ILF/IzlWou7DthYp443ydpp6ByXgZJ3iG+yVvz47SBd1z83BQfIMXwsF1VTDlur7iQMAMaF7GtqkV29njphXyAcP+jaaGWxynM27h1nMxKdey4GsdrD3ycU/9z/ZlIQecyX58LnmzMu6byASvcK3YN6CNyec3rAK2LyFwSSibkygXV5tyXn8FB37XELCBFkQH9LA7g/l9WUtukPXMwSiUl1rcl6avZ/Anf+fV0m+p0eeNPZm/TtA=",
+      "client-secret": "AgAT3KQPtDXHL4UfBDzxa2AQT8w0uVF4Y6iXVgMrO4oBxF0wMsq6nSmbY2h+dWp1aBaTvcdU/DTzlD6byIcLzb7ZzgE/SmQE7/L3Okrn1YoTvCg5INSH9hJ/CoAHbCGIfXTmwzaM6fgkjCGthWb5rl2q2GRo0cv/tXjqT8OAsGnzq1/vzWas/t7CQ2fgmz2zBUrykCXnKI80eMsOqxooi7rvjaOYdbDqrB0NvR/QgL/rbsidmaVMNxWKKGvHpC0xEg4wfWVUBM3zmJ/GSKV2RhjAoTJbeOkI/SDZ7k+XvWFUZdT3wmGRCOBJ3t7MIjcygvud4lxp6oGX/RabPa4BRdUPnjvCxsqruE/CXbB5eFmGp0vOz1IYE5htztd3EAYaLLl2uG+kskj5Y5c84hnIickX9KWxdCnHAt1AeWzx3+xM+uI0zb82UBwzyLlngFqzo2V3zS5jN4qYAV9QBzSvfmPsubQa5Ekg7SMXnieOBSwpWu5NP9YzxjgD4VAucHknbpNqWgAIBOP5yl3IRJvrUAbTrJRRD2nwe0wB2dVRWFgi7ffuf13wvpMbdI7o22UOczzPz8VnFhAgLfFKnGo4CvY0k2rNtWjOhYQgwLvcDqcRGRHZCKXJ5beYjSVipBSKsR/VdO4BurOBlIllv+ZFRFIiI9TWOohoySTB0TZMiyq/wNhuCrWUYIiZSJHZ6NAfI1IxZad/AA4l5RwqrMd+S7mH9CRSAUCKbYyLM70Hy9vcGIwt5WvWiONxbZ8Oo6rfYrYPial7/pg431SJrFjH"
+    }
+  }
+}

@@ -1,0 +1,4 @@
+spec:
+  source:
+    repoURL: https://github.com/licketysplitops/argocd-deployments
+    targetRevision: dev

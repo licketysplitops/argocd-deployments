@@ -2,3 +2,4 @@
 terraform*
 ytt.data.yaml
 .envrc
+.DS_Store
