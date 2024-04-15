@@ -2,9 +2,11 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
+  - https://raw.githubusercontent.com/argoproj/argo-cd/v2.10.5/manifests/ha/install.yaml
   - argocd-ns.yaml
   - argocd-ingress.yaml
   - argocd-issuer.yaml
   - argocd-certificate.yaml
   - argo-workflows-sso-dex-sealed.yaml
-  - https://raw.githubusercontent.com/argoproj/argo-cd/v2.10.5/manifests/ha/install.yaml
+  - proj-argocd.yaml
+  - proj-system.yaml
