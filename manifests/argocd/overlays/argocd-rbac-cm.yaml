@@ -5,4 +5,4 @@ metadata:
 data:
   policy.default: "role:readonly"
   policy.csv: |
-    g, licketysplitops, role:admin
+    g, licketysplitops:admins, role:admin

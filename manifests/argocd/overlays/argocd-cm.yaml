@@ -22,6 +22,8 @@ data:
         clientSecret: $argocd-auth:dex.github.clientSecret
         orgs:
         - name: licketysplitops
+          teams:
+          - admins
     staticClients:
       - id: argo-workflows-sso
         name: Argo Workflow
