@@ -6,8 +6,9 @@ metadata:
 spec:
   project: default
   source:
-    chart: app-of-apps
+    chart: apps
     repoURL: https://github.com/licketysplitops/argocd-deployments
+    path: apps
     targetRevision: 0.1.0
     helm:
       releaseName: apps
