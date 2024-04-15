@@ -1,0 +1,3 @@
+#@ load("@ytt:data", "data")
+---
+service: #@ data.values.load_balancer.id

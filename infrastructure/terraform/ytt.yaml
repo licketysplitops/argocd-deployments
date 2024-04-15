@@ -1,0 +1,4 @@
+#@data/values
+---
+load_balancer:
+  id: ${loadbalancer_id}
