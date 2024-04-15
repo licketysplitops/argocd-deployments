@@ -2,7 +2,6 @@ apiVersion: argoproj.io/v1alpha1
 kind: EventSource
 metadata:
   name: github
-  namespace: events
 spec:
   service:
     ports:
@@ -20,7 +19,12 @@ spec:
         port: "12000"
         method: POST
         url: https://github.do.nullkarma.com
-      # You can find more info on https://developer.github.com/v3/activity/events/types/
+        serverCertSecret:
+          name: github-eventsource-tls
+          key: tls.crt
+        serverKeySecret:
+          name: github-eventsource-tls
+          key: tls.key
       events:
         - "push"
       apiToken:
@@ -29,30 +33,3 @@ spec:
       insecure: true
       active: true
       contentType: json
-
-#    example-with-secure-connection:
-#      owner: "argoproj"
-#      repository: "argo"
-#      webhook:
-#        endpoint: "/push"
-#        port: "13000"
-#        method: "POST"
-#        url: "http://myargofakeurl.fake"
-#        # k8s secret that contains the cert
-#        serverCertSecret:
-#          name: my-secret
-#          key: cert-key
-#        # k8s secret that contains the private key
-#        serverKeySecret:
-#          name: my-secret
-#          key: pk-key
-#      events:
-#        - "push"
-#        - "delete"
-#      apiToken:
-#        name: github-access
-#        key: token
-#      webhookSecret:
-#        name: github-access
-#        key: secret
-#      insecure: true
