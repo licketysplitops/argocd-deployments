@@ -8,5 +8,6 @@ resources:
   - argocd-issuer.yaml
   - argocd-certificate.yaml
   - argo-workflows-sso-dex-sealed.yaml
+  - argocd-auth-secret-sealed.yaml
   - proj-argocd.yaml
   - proj-system.yaml
