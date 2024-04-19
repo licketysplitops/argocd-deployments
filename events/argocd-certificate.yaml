@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: github-events-tls
+spec:
+  secretName: github-eventsource-tls
+  issuerRef:
+    name: events-issuer
+    kind: Issuer
+  commonName: github.do.nullkarma.com
+  dnsNames:
+    - github.do.nullkarma.com

@@ -1,5 +1,7 @@
 .idea
 bootstrap
 secrets
+testing
+workflows
 Taskfile.yml
 
