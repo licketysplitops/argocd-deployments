@@ -11,3 +11,4 @@ resources:
   - argocd-auth-secret-sealed.yaml
   - proj-argocd.yaml
   - proj-system.yaml
+  - proj-apps.yaml
