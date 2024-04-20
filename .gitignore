@@ -4,4 +4,5 @@ secrets
 testing
 workflows
 Taskfile.yml
+.envrc
 
