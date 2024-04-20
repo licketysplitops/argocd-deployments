@@ -1,0 +1,110 @@
+vault:
+  global:
+    enabled: true
+    tlsDisable: false
+
+  injector:
+    enabled: true
+    image:
+      repository: "hashicorp/vault-k8s"
+      tag: "latest"
+
+  certs:
+    #secretName: vault-tls
+    certName: tls.crt
+    keyName: tls.key
+
+    resources:
+      requests:
+        memory: 256Mi
+        cpu: 250m
+      limits:
+        memory: 256Mi
+        cpu: 250m
+
+  server:
+    repository: "hashicorp/vault"
+    tag: "1.16.1"
+
+    extraEnvironmentVars:
+      VAULT_ADDR: https://vault.do.nullkarma.com
+    volumes:
+      - name: raft-vault-server-tls
+        secret:
+          defaultMode: 420
+          secretName: vault-server-tls
+      - name: vault-server-tls
+        secret:
+          defaultMode: 420
+          secretName: vault-tls
+
+    volumeMounts:
+      - mountPath: /vault/userconfig/vault-server-tls
+        name: raft-vault-server-tls
+        readOnly: true
+      - mountPath: /vault/userconfig/vault-listener-tls
+        name: vault-server-tls
+        readOnly: true
+
+    ingress:
+      enabled: true
+      activeService: true
+      annotations:
+        cert-manager.io/cluster-issuer: "letsencrypt"
+      ingressClassName: nginx
+      hosts:
+        - host: vault.do.nullkarma.com
+      tls:
+        - secretName: vault-tls
+          hosts:
+            - vault.do.nullkarma.com
+
+    resources:
+      requests:
+        memory: 2Gi
+        cpu: 1000m
+      limits:
+        memory: 5Gi
+        cpu: 2000m
+
+    # For HA configuration and because we need to manually init the vault,
+    # we need to define custom readiness/liveness Probe settings
+    readinessProbe:
+      enabled: true
+      path: "/v1/sys/health?standbyok=true&sealedcode=204&uninitcode=204"
+    livenessProbe:
+      enabled: true
+      path: "/v1/sys/health?standbyok=true"
+      initialDelaySeconds: 60
+
+    # This configures the Vault Statefulset to create a PVC for audit logs.
+    # See https://www.vaultproject.io/docs/audit/index.html to know more
+    auditStorage:
+      enabled: false
+
+    standalone:
+      enabled: false
+
+    # Run Vault in "HA" mode.
+    ha:
+      enabled: true
+      replicas: 3
+      raft:
+        enabled: true
+        setNodeId: true
+        config: |
+          ui = true
+          cluster_name = "vault.do.nullkarma.com"
+          listener "tcp" {
+            address = "0.0.0.0:8200"
+            cluster_address = "0.0.0.0:8201"
+            tls_cert_file = "/vault/userconfig/vault-listener-tls/tls.crt"
+            tls_key_file  = "/vault/userconfig/vault-listener-tls/tls.key"
+          }
+          
+          storage "raft" {
+            path = "/vault/data"
+          }
+  ui:
+    enabled: true
+    externalPort: 8200
