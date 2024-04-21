@@ -4,6 +4,7 @@ secrets:
   githubClientSecret: overlay
   webTlsCert: overlay
   webTlsKey: overlay
+  useAuthParam: overaly
 concourse:
   web:
     clusterName: nullkarma
@@ -23,9 +24,10 @@ concourse:
       github:
         enabled: true
     vault:
-      enabled: false
+      enabled: true
       url: https://vault.do.nullkarma.com
       authBackend: approle
+      useAuthParam: true
   worker:
     team: main
 web:

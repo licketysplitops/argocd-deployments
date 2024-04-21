@@ -19,6 +19,11 @@ spec:
                 secretKeyRef:
                   key: client-secret
                   name: github-auth
+            - name: CONCOURSE_VAULT_AUTH_PARAM
+              valueFrom:
+                secretKeyRef:
+                  key: vault-client-auth-param
+                  name: vault-auth
       volumes:
         - name: web-tls
           secret:

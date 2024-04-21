@@ -5,7 +5,8 @@ namespace: concourse
 
 resources:
   - concourse-web-certificate.yaml
-  - gitub-auth.yaml
+  - gitub-auth-sealed.yaml
+  - vault-auth-sealed.yaml
 
 helmCharts:
   - name: concourse

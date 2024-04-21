@@ -1,0 +1,21 @@
+{
+  "kind": "SealedSecret",
+  "apiVersion": "bitnami.com/v1alpha1",
+  "metadata": {
+    "name": "vault-auth",
+    "namespace": "concourse",
+    "creationTimestamp": null
+  },
+  "spec": {
+    "template": {
+      "metadata": {
+        "name": "vault-auth",
+        "namespace": "concourse",
+        "creationTimestamp": null
+      }
+    },
+    "encryptedData": {
+      "vault-client-auth-param": "AgABhrAcMiOsKIKnx0Vq16+qGevgpHKeRKbYHfgXBUA11zFe2MZe9X5yYdib7p67SK4IbiAUdr1nMMeqmYv3MqFSZAhdTHiZZmZ4RYqggos3oIB0+UWyb3VDDAWfyLU/UCyqLF0ID5AVmrru/skLFGilAlCDNpWLg4xXRrr+Rn0o00NT7WTtZqJQaHdVGojdPjdgapwkoKF7/p+gyLV5b4nfaaB10sOmpbPOOfyvM6FSJRKdirguRQV7nbQPam1ssyE5EyGifCfn3omSy8ECLc+T/acpfAjIxsn45TOpy47h4DqH644WPeGqtNeGBYrKxzL+eRzeMo7QoW5DquYheBZT0aZy+uzQU+MfN9A95Ph9ZISZ8dz0BUBglIY6wJPawjQi+s7gM45cPdy6DPigPBgDivtWu7sPBS1jO0RYtc6W/+C+/BjO/SD4tqgvYw4t/SyUuNCC2YJvj4sjfvT6rT/+GP9efwwWMUVJtjnr7qHp+lbMTsARkcjRQlug5pp6XFh5IZ24RLfyAkTxpErQCbvLn0f42v/DNKTLoaY3QDUplsmCjgi8W+bJG3TJF3Zfzh9ACiZj8K43sfxfUXXEyx1zzuAp7QOSKxycdsup3sIR22xt2UcTzBIzOQ/tpfsL8QMzql5d/G8yidHL21naN/X7EkveA36VC0fGbov8DRJPg7mvX7UKapiuvDyFfBDfomGkE9O8kM9sA3d7VGY2fH6XY0BGXbabxcR9swURSwslM0jW0YBdqw9w8+ZVmXP9Uu6LP6kDT2iBlm9McNKcDxj/b6+8RFm1mUidNXR8WKoDQFKu/5EIrN1u/OFq"
+    }
+  }
+}

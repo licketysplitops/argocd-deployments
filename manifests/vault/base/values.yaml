@@ -1,126 +1,125 @@
-vault:
-  global:
+global:
+  enabled: true
+  tlsDisable: false
+
+injector:
+  enabled: true
+  image:
+    repository: "hashicorp/vault-k8s"
+    tag: "latest"
+
+  resources:
+    requests:
+      memory: 256Mi
+      cpu: 250m
+    limits:
+      memory: 256Mi
+      cpu: 250m
+
+server:
+  repository: "hashicorp/vault"
+  tag: "1.16.1"
+
+  extraEnvironmentVars:
+    VAULT_ADDR: https://vault.do.nullkarma.com
+
+  extraSecretEnvironmentVars:
+    - envName: AZURE_CLIENT_ID
+      secretName: vault-autounseal
+      secretKey: client-id
+    - envName: AZURE_CLIENT_SECRET
+      secretName: vault-autounseal
+      secretKey: client-secret
+  volumes:
+    - name: vault-server-tls
+      secret:
+        defaultMode: 420
+        secretName: vault-tls
+    #- name: vault-raft-tls
+    #  secret:
+    #    defaultMode: 420
+    #    secretName: vault-raft-tls
+
+  volumeMounts:
+    - mountPath: /vault/userconfig/vault-listener-tls
+      name: vault-server-tls
+      readOnly: true
+    #- mountPath: /vault/userconfig/vault-raft-tls
+    #  name: vault-raft-tls
+    #  readOnly: true
+
+  ingress:
     enabled: true
-    tlsDisable: false
+    activeService: true
+    annotations:
+      cert-manager.io/cluster-issuer: "letsencrypt"
+      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+      nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+    ingressClassName: nginx
+    hosts:
+      - host: vault.do.nullkarma.com
+    tls:
+      - secretName: vault-tls
+        hosts:
+          - vault.do.nullkarma.com
 
-  injector:
+  resources:
+    requests:
+      memory: 2Gi
+      cpu: 1000m
+    limits:
+      memory: 5Gi
+      cpu: 2000m
+
+  readinessProbe:
     enabled: true
-    image:
-      repository: "hashicorp/vault-k8s"
-      tag: "latest"
-
-    resources:
-      requests:
-        memory: 256Mi
-        cpu: 250m
-      limits:
-        memory: 256Mi
-        cpu: 250m
-
-  server:
-    repository: "hashicorp/vault"
-    tag: "1.16.1"
-
-    extraEnvironmentVars:
-      VAULT_ADDR: https://vault.do.nullkarma.com
-
-    extraSecretEnvironmentVars:
-      - envName: AZURE_CLIENT_ID
-        secretName: vault-autounseal
-        secretKey: client-id
-      - envName: AZURE_CLIENT_SECRET
-        secretName: vault-autounseal
-        secretKey: client-secret
-    volumes:
-      - name: vault-server-tls
-        secret:
-          defaultMode: 420
-          secretName: vault-tls
-      #- name: vault-raft-tls
-      #  secret:
-      #    defaultMode: 420
-      #    secretName: vault-raft-tls
-
-    volumeMounts:
-      - mountPath: /vault/userconfig/vault-listener-tls
-        name: vault-server-tls
-        readOnly: true
-      #- mountPath: /vault/userconfig/vault-raft-tls
-      #  name: vault-raft-tls
-      #  readOnly: true
-
-    ingress:
-      enabled: true
-      activeService: true
-      annotations:
-        cert-manager.io/cluster-issuer: "letsencrypt"
-        nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-        nginx.ingress.kubernetes.io/ssl-passthrough: "true"
-      ingressClassName: nginx
-      hosts:
-        - host: vault.do.nullkarma.com
-      tls:
-        - secretName: vault-tls
-          hosts:
-            - vault.do.nullkarma.com
-
-    resources:
-      requests:
-        memory: 2Gi
-        cpu: 1000m
-      limits:
-        memory: 5Gi
-        cpu: 2000m
-
-    readinessProbe:
-      enabled: true
-      path: "/v1/sys/health?standbyok=true&sealedcode=204&uninitcode=204"
-    livenessProbe:
-      enabled: true
-      path: "/v1/sys/health?standbyok=true"
-      initialDelaySeconds: 60
-
-    auditStorage:
-      enabled: false
-
-    standalone:
-      enabled: false
-
-    # Run Vault in "HA" mode.
-    ha:
-      enabled: true
-      replicas: 3
-      raft:
-        enabled: true
-        setNodeId: true
-        config: |
-          ui = true
-          listener "tcp" {
-            address = "0.0.0.0:8200"
-            tls_cert_file = "/vault/userconfig/vault-listener-tls/tls.crt"
-            tls_key_file = "/vault/userconfig/vault-listener-tls/tls.key"
-            tls_disable = 0
-          }
-          
-          storage "raft" {
-            path = "/vault/data"
-            retry_join {
-              leader_api_addr = "http://vault-0.vault-internal:8200"
-            }
-            retry_join {
-              leader_api_addr = "http://vault-1.vault-internal:8200"
-            }
-            retry_join {
-              leader_api_addr = "http://vault-2.vault-internal:8200"
-            }
-          }
-          seal "azurekeyvault" {
-            tenant_id      = "2eef9945-4b4d-448c-bd6d-c28a7ea7cb49"
-            vault_name     = "kv-store"
-            key_name       = "vault-autounseal"
-          }
-          service_registration "kubernetes" {}
-
-  ui:
+    path: "/v1/sys/health?standbyok=true&sealedcode=204&uninitcode=204"
+  livenessProbe:
     enabled: true
-    externalPort: 8200
+    path: "/v1/sys/health?standbyok=true"
+    initialDelaySeconds: 60
+
+  auditStorage:
+    enabled: false
+
+  standalone:
+    enabled: false
+
+  # Run Vault in "HA" mode.
+  ha:
+    enabled: true
+    replicas: 3
+    raft:
+      enabled: true
+      setNodeId: true
+      config: |
+        ui = true
+        listener "tcp" {
+          address = "0.0.0.0:8200"
+          tls_cert_file = "/vault/userconfig/vault-listener-tls/tls.crt"
+          tls_key_file = "/vault/userconfig/vault-listener-tls/tls.key"
+          tls_disable = 0
+        }
+        
+        storage "raft" {
+          path = "/vault/data"
+          retry_join {
+            leader_api_addr = "http://vault-0.vault-internal:8200"
+          }
+          retry_join {
+            leader_api_addr = "http://vault-1.vault-internal:8200"
+          }
+          retry_join {
+            leader_api_addr = "http://vault-2.vault-internal:8200"
+          }
+        }
+        seal "azurekeyvault" {
+          tenant_id      = "2eef9945-4b4d-448c-bd6d-c28a7ea7cb49"
+          vault_name     = "kv-store"
+          key_name       = "vault-autounseal"
+        }
+        service_registration "kubernetes" {}
+
+ui:
+  enabled: true
+  externalPort: 8200
