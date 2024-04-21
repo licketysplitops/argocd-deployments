@@ -3,6 +3,7 @@ bootstrap
 secrets
 testing
 workflows
+events
 Taskfile.yml
 .envrc
 
