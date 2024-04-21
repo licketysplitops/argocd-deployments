@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: concourse-web
+  namespace: concourse
+spec:
+  template:
+    spec:
+      containers:
+        - name: concourse-web
+          env:
+            - name: CONCOURSE_GITHUB_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  key: client-id
+                  name: github-auth
+            - name: CONCOURSE_GITHUB_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  key: client-secret
+                  name: github-auth
+      volumes:
+        - name: web-tls
+          secret:
+            defaultMode: 256
+            items:
+              - key: tls.crt
+                path: client.cert
+              - key: tls.key
+                path: client.key
+            secretName: concourse-web-tls

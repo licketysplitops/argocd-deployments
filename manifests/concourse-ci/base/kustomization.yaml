@@ -1,0 +1,17 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: concourse
+
+resources:
+  - concourse-web-certificate.yaml
+  - gitub-auth.yaml
+
+helmCharts:
+  - name: concourse
+    repo: https://concourse-charts.storage.googleapis.com/
+    version: 17.3.1
+    releaseName: concourse
+    namespace: concourse
+    includeCRDs: true
+    valuesFile: values.yaml

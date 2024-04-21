@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: concourse-web
+  namespace: concourse
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: concourse.do.nullkarma.com
+      http:
+        paths:
+          - backend:
+              service:
+                name: concourse-web
+                port:
+                  number: 443
+            path: /
+            pathType: Prefix

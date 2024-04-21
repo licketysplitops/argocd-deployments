@@ -1,0 +1,43 @@
+secrets:
+  create: true
+  githubClientId: overlay
+  githubClientSecret: overlay
+  webTlsCert: overlay
+  webTlsKey: overlay
+concourse:
+  web:
+    clusterName: nullkarma
+    enableRedactSecrets: true
+    externalUrl: https://concourse.do.nullkarma.com
+    letsEncrypt:
+      enabled: false
+    localAuth:
+      enabled: false
+    tls:
+      enabled: true
+    auth:
+      mainTeam:
+        github:
+          team: licketysplitops:admins
+        localUser: false
+      github:
+        enabled: true
+    vault:
+      enabled: false
+      url: https://vault.do.nullkarma.com
+      authBackend: approle
+  worker:
+    team: main
+web:
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    annotations:
+      nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+      nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+    hosts:
+      - concourse.do.nullkarma.com
+    tls:
+      - secretName: concourse-web-tls
+        hosts:
+          - concourse.do.nullkarma.com

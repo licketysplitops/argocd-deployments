@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: concourse-web-tls
+spec:
+  secretName: concourse-web-tls
+  issuerRef:
+    name: letsencrypt
+    kind: ClusterIssuer
+  commonName: concourse.do.nullkarma.com
+  dnsNames:
+    - concourse.do.nullkarma.com
