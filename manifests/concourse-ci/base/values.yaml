@@ -23,13 +23,18 @@ concourse:
         localUser: false
       github:
         enabled: true
+    kubernetes:
+      enabled: false
     vault:
       enabled: true
-      url: https://vault.do.nullkarma.com
+      url: https://vault.do.nullkarma.com:443
       authBackend: approle
       useAuthParam: true
   worker:
     team: main
+    runtime: containerd
+    baggageclaim:
+      driver: naive
 web:
   ingress:
     enabled: true
